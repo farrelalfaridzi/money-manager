@@ -28,9 +28,10 @@ def add():
     if request.method == "POST":
         jumlah = int(request.form["amount"])
         kategori = request.form["category"]
+        tanggal = request.form["tanggal"]
         catatan = request.form["description"]
         jenis = request.form["jenis"]
-        transaction = Transaction(jumlah, kategori, catatan, jenis)
+        transaction = Transaction(jumlah, kategori, tanggal, catatan, jenis)
         manager.add_transaction(transaction)
         return redirect(url_for("transactions"))
     return render_template("add.html")
@@ -52,9 +53,10 @@ def edit(id):
     if request.method == "POST":
         jumlah = int(request.form["amount"])
         kategori = request.form["category"]
+        tanggal = request.form["tanggal"]
         catatan = request.form["description"]
         jenis = request.form["jenis"]
-        manager.update_transaction(id, jumlah, kategori, catatan, jenis)
+        manager.update_transaction(id, jumlah, kategori, tanggal, catatan, jenis)
         return redirect(url_for("transactions"))
     return render_template("edit.html", transaction = manager.get_transaction_by_id(id))
 

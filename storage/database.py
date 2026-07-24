@@ -12,6 +12,7 @@ class DatabaseManager:
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 amount INTEGER,
                 category TEXT,
+                tanggal TEXT,
                 description TEXT,
                 jenis TEXT
             )
@@ -23,13 +24,15 @@ class DatabaseManager:
             INSERT INTO transactions(
                 amount,
                 category,
+                tanggal,
                 description,
                 jenis
             )
-            VALUES(?, ?, ?, ?)
+            VALUES(?, ?, ?, ?, ?)
         ''',
         (transaction.amount,
         transaction.category,
+        transaction.tanggal,
         transaction.description,
         transaction.jenis)
         )
@@ -40,7 +43,7 @@ class DatabaseManager:
         self.cursor.execute("SELECT * FROM transactions")
         rows = self.cursor.fetchall()
         for row in rows:
-            transaction = Transaction(row[1], row[2], row[3], row[4], id=row[0])
+            transaction = Transaction(row[1], row[2], row[3], row[4], row[5], id=row[0])
             transactions.append(transaction)
         return transactions
     
@@ -55,9 +58,10 @@ class DatabaseManager:
                 SET
                     amount = ?,
                     category = ?,
+                    tanggal = ?,
                     description = ?,
                     jenis = ?
                 WHERE id = ?
                 '''
-        self.cursor.execute(update, (transaction.amount, transaction.category, transaction.description, transaction.jenis, transaction.id))
+        self.cursor.execute(update, (transaction.amount, transaction.category, transaction.tanggal, transaction.description, transaction.jenis, transaction.id))
         self.connection.commit()

@@ -26,10 +26,11 @@ class TransactionManager:
         self.database.delete_transaction(id)
         self.transactions.remove(transaction)
 
-    def update_transaction(self, id, amount, category, description, jenis):
+    def update_transaction(self, id, amount, category, tanggal, description, jenis):
         transaction = self.get_transaction_by_id(id)
         transaction.amount = amount
         transaction.category = category
+        transaction.tanggal = tanggal
         transaction.description = description
         transaction.jenis = jenis
         self.database.update_transaction(transaction)
