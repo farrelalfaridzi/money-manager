@@ -44,7 +44,7 @@ class TransactionManager:
         return None
 
     def search_transaction(self, category, jenis):
-        if not category and jenis == "Semua":
+        if not category and not jenis:
             return self.transactions
         kategori = self.service.search_by_category(self.transactions, category)
         if jenis == "Semua":
